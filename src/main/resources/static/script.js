@@ -7,11 +7,11 @@ function visBilett(billetter) {
     let liste = document.getElementById("kinobilletter");
     liste.innerHTML = "";
     let ut = "<div class='col-xs-2'>Film</div>" + "<div class='col-xs-2'>Antall</div>" + "<div class='col-xs-2'>Fornavn</div>" +
-        "<div class='col-xs-2'>Etternavn</div>" + "<div class='col-xs-2'>TelefonNr</div>" + "<div class='col-xs-2'>Epost</div><br>"
+        "<div class='col-xs-2'>Etternavn</div>" + "<div class='col-xs-2'>TelefonNr</div>" + "<div class='col-xs-2'>Epost</div><br><br>"
 
     for (let p of billetter){
         ut += "<div class='row'><div class='col-xs-2'>"+p.film+"</div><div class='col-xs-2'>"+p.antall+"</div><div class='col-xs-2'>"+p.fornavn+"</div>"+
-            "<div class='col-xs-2'>"+p.etternavn+"</div><div class='col-xs-2'>"+p.telefon+"</div><div class='col-xs-2'>"+p.epost+"</div></div><br>"
+            "<div class='col-xs-2'>"+p.etternavn+"</div><div class='col-xs-2'>"+p.telefon+"</div><div class='col-xs-2'>"+p.epost+"</div></div><hr>"
     }
     liste.innerHTML=ut;
 }
