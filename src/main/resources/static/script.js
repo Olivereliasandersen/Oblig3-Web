@@ -11,7 +11,7 @@ function visBilett(billetter) {
 
     for (let p of billetter){
         ut += "<div class='row'><div class='col-xs-2'>"+p.film+"</div><div class='col-xs-2'>"+p.antall+"</div><div class='col-xs-2'>"+p.fornavn+"</div>"+
-            "<div class='col-xs-2'>"+p.etternavn+"</div><div class='col-xs-2'>"+p.telefon+"</div><div class='col-xs-2'>"+p.epost+"</div></div><hr>"
+            "<div class='col-xs-2'>"+p.etternavn+"</div><div class='col-xs-2'>"+p.telefon+"</div><div class='col-xs-2'>"+p.epost+" <button onclick='oppdaterBillett()'>Oppdater</button></div></div><hr>"
     }
     liste.innerHTML=ut;
 }
@@ -147,4 +147,19 @@ function slettBilletter(){
 
 function getData(){
     $.get("/hentAlle", function(data){visBilett(data)})
+}
+
+function oppdaterBillett(){
+    const billett = {
+        id : $("#id").val(),
+        film : $("#film").val(),
+        antall : $("#antall").val(),
+        fornavn : $("#fornavn").val(),
+        etternavn : $("#etternavn").val(),
+        telefon : $("#telefon").val(),
+        epost : $("#epost").val(),
+    };
+    $.post("/oppdater",billett, function(){
+        hentAlle();
+    })
 }

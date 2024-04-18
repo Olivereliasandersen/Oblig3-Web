@@ -1,5 +1,7 @@
 package com.example.oblig3webprogram;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,6 +16,8 @@ public class BillettRepository {
 
     @Autowired
     private JdbcTemplate db;
+
+    private Logger logger = LoggerFactory.getLogger(BillettRepository.class);
 
     class BillettRowMapper implements RowMapper< Billett > {
         @Override
@@ -44,5 +48,17 @@ public class BillettRepository {
     public void slettAlleBilletter(){
         String sql = "DELETE FROM Billett";
         db.update(sql);
+    }
+
+    public boolean oppdaterBillett(Billett b){
+        String sql = "UPDATE Billett SET film=?, antall=?, fornavn=?, etternavn=?, telefon=?, epost=?, id=?";
+        try{
+            db.update(sql, b.getFilm(),b.getAntall(),b.getFornavn(),b.getEtternavn(),b.getTelefon(),b.getEpost(),b.getId());
+            return true;
+        }
+        catch(Exception e){
+            logger.error("Feil i oppdater en billett"+e);
+            return false;
+        }
     }
 }
