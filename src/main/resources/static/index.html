@@ -26,7 +26,7 @@
 
                 <h1>Bestilling av kinobilletter</h1>
                 <form class="form">
-                    <input type="text" id="id"/>
+                    <input type="text" id="id" hidden/>
                     <div class="form-group">
                         <!--Dropdown hvor du velger 1 av 4 filmer-->
                         <lable for="film">Velg film:</lable>
@@ -77,6 +77,50 @@
             <div class="col-md-8">
                 <h2>Alle billetter</h2>
                 <div id="kinobilletter"></div>
+
+                <div id="oppdater" style="display: none">
+                <h3>Oppdater billett</h3>
+                <form class="form">
+                    <div class="form-group">
+                        <!--Dropdown hvor du velger 1 av 4 filmer-->
+                        <lable for="film">Velg film:</lable>
+                        <select name="film" id="filmOppdater" class="form-control">
+                            <option value=""></option>
+                            <option value="Star Wars">Star Wars</option>
+                            <option value="Lord Of The Rings">Lord Of The Rings</option>
+                            <option value="Cars">Cars</option>
+                            <option value="Harry Potter">Harry Potter</option>
+                        </select>
+                    </div>
+                    <!--Innputter som blir vist i kinobilletten-->
+                    <div class="form-group">
+                        <label for="antall">Antall</label>
+                        <input type="number" id="antallOppdater" class="form-control" min="0" style="width: 50px"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fornavn">Fornavn</label>
+                        <input type="text" id="fornavnOppdater" class="form-control"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="etternavn">Etternavn</label>
+                        <input type="text" id="etternavnOppdater" class="form-control"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefon">Telefonnr</label>
+                        <input type="text" id="telefonOppdater" class="form-control"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="epost">Epost</label>
+                        <input type="text" id="epostOppdater" class="form-control"/>
+                    </div>
+                </form>
+                    <button class="btn btn-primary" onclick="oppdaterBillett()" type="button">Lagre</button>
+                </div>
+
                 <br>
                 <!--Knapp som sletter billetten-->
                 <button class="btn btn-danger" onclick="slettBilletter()" type="button">Slett alle billettene</button>

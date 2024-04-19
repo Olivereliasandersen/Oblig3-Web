@@ -61,4 +61,16 @@ public class BillettRepository {
             return false;
         }
     }
+
+    public void slettEnBillett(Billett b){
+        String sql = "DELETE FROM Billett WHERE id=?";
+        db.update(sql, b.getId());
+    }
+
+    public Billett hentEnBillett(Billett b){
+        System.out.println(b.getId());
+        String sql = "SELECT * FROM Billett WHERE id=?";
+        List<Billett> enBillett = db.query(sql, new BillettRowMapper(), b.getId());
+        return enBillett.get(0);
+    }
 }

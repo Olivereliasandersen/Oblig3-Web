@@ -6,12 +6,15 @@ function nullInnhold(input){
 function visBilett(billetter) {
     let liste = document.getElementById("kinobilletter");
     liste.innerHTML = "";
-    let ut = "<div class='col-xs-2'>Film</div>" + "<div class='col-xs-2'>Antall</div>" + "<div class='col-xs-2'>Fornavn</div>" +
-        "<div class='col-xs-2'>Etternavn</div>" + "<div class='col-xs-2'>TelefonNr</div>" + "<div class='col-xs-2'>Epost</div><br><br>"
+    let ut = "<table class='table table-striped'><tr><th>Film</th><th>Antall</th><th>Fornavn</th>" +
+        "<th>Etternavn</th><th>Telefonnr</th><th>Epost</th><th></th><th></th></tr>";
 
     for (let p of billetter){
-        ut += "<div class='row'><div class='col-xs-2'>"+p.film+"</div><div class='col-xs-2'>"+p.antall+"</div><div class='col-xs-2'>"+p.fornavn+"</div>"+
-            "<div class='col-xs-2'>"+p.etternavn+"</div><div class='col-xs-2'>"+p.telefon+"</div><div class='col-xs-2'>"+p.epost+" <button onclick='oppdaterBillett()'>Oppdater</button></div></div><hr>"
+        ut += "<tr><td>" + p.film + "</td><td>" + p.antall + "</td><td>" + p.fornavn + "</td>" +
+        "<td>" + p.etternavn + "</td><td>" + p.telefon + "</td><td>" + p.epost + "</td>" +
+        "<td> <button class='btn btn-primary' onclick='oppdaterKnapp("+p.id+")'>Endre</button></td>"+
+        "<td> <button class='btn btn-danger' onclick='slettBillett("+p.id+")'>Slett</button></td>"+
+        "</tr>";
     }
     liste.innerHTML=ut;
 }
@@ -141,8 +144,48 @@ function registrer() {
 }
 //Funksjon som sletter billetten
 function slettBilletter(){
-    document.getElementById("kinobilletter").innerHTML="";
-    $.post("/slettAlle", function(){})
+    $.ajax({
+        url : "/slettAlle",
+        type : "DELETE",
+        success : function(){document.getElementById("kinobilletter").innerHTML="";}
+    })
+}
+
+function slettBillett(id){
+    let billettId = {
+        id : id
+    }
+    $.ajax({
+        url: "/slettEnBillett",
+        type: "DELETE",
+        data : billettId,
+        success : function (){
+            getData()
+            document.getElementById("oppdater").style.display="none";
+        }
+    })
+}
+
+function oppdaterKnapp(id){
+    const oppdaterElement = document.getElementById("oppdater");
+    if (oppdaterElement.style.display === "none"){
+        oppdaterElement.style.display = "block";
+    }
+    else {
+        oppdaterElement.style.display = "none";
+    }
+    document.getElementById("id").value=id;
+    let billettId = {
+        id : id
+    }
+    $.get("/huskBillett", billettId, function (data){
+        document.getElementById("filmOppdater").value=data.film
+        document.getElementById("antallOppdater").value=data.antall
+        document.getElementById("fornavnOppdater").value=data.fornavn
+        document.getElementById("etternavnOppdater").value=data.etternavn
+        document.getElementById("telefonOppdater").value=data.telefon
+        document.getElementById("epostOppdater").value=data.epost
+    })
 }
 
 function getData(){
@@ -152,14 +195,16 @@ function getData(){
 function oppdaterBillett(){
     const billett = {
         id : $("#id").val(),
-        film : $("#film").val(),
-        antall : $("#antall").val(),
-        fornavn : $("#fornavn").val(),
-        etternavn : $("#etternavn").val(),
-        telefon : $("#telefon").val(),
-        epost : $("#epost").val(),
+        film : $("#filmOppdater").val(),
+        antall : $("#antallOppdater").val(),
+        fornavn : $("#fornavnOppdater").val(),
+        etternavn : $("#etternavnOppdater").val(),
+        telefon : $("#telefonOppdater").val(),
+        epost : $("#epostOppdater").val(),
     };
     $.post("/oppdater",billett, function(){
-        hentAlle();
+        getData();
+        document.getElementById("oppdater").style.display="none";
     })
 }
+

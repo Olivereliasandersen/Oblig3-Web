@@ -27,6 +27,9 @@ public class Billett {
         this.telefon = telefon;
         this.epost = epost;
     }
+    public Billett(Long id){
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

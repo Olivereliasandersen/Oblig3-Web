@@ -22,16 +22,24 @@ public class BillettLagring {
         return rep.hentAlleBilletter();
     }
 
+    @GetMapping("/huskBillett")
+    public Billett huskBillett(Billett billett){
+        return rep.hentEnBillett(billett);
+    }
 
-    @PostMapping("/slettAlle")
+    @DeleteMapping("/slettAlle")
     public void slettAlle(){
         rep.slettAlleBilletter();
     }
 
-    @PostMapping("/oppdater")
-    public void oppdater(Billett billett){
-
+    @DeleteMapping("/slettEnBillett")
+    public void slettEnBillett(Billett billett){
+        rep.slettEnBillett(billett);
     }
 
+    @PostMapping("/oppdater")
+    public void oppdater(Billett billett){
+        rep.oppdaterBillett(billett);
+    }
 }
 
