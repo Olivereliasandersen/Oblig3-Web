@@ -150,7 +150,7 @@ function slettBilletter(){
         success : function(){document.getElementById("kinobilletter").innerHTML="";}
     })
 }
-
+//Funksjon som sletter bare 1 billett
 function slettBillett(id){
     let billettId = {
         id : id
@@ -165,7 +165,7 @@ function slettBillett(id){
         }
     })
 }
-
+//Funksjon som åpner vinduet hvor du kan endre på billetten
 function oppdaterKnapp(id){
     const oppdaterElement = document.getElementById("oppdater");
     if (oppdaterElement.style.display === "none"){
@@ -187,11 +187,11 @@ function oppdaterKnapp(id){
         document.getElementById("epostOppdater").value=data.epost
     })
 }
-
+//Funksjon som henter ut dataen fra billetten
 function getData(){
     $.get("/hentAlle", function(data){visBilett(data)})
 }
-
+//Funksjon som oppaterer billetten med ny informasjon
 function oppdaterBillett(){
     const billett = {
         id : $("#id").val(),

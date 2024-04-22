@@ -34,22 +34,24 @@ public class BillettRepository {
         }
 
     }
+    //Lagrer billetten i databasen
     public void lagreBillett(Billett innBillett){
         String sql = "INSERT INTO billett (film, antall, fornavn, etternavn, telefon, epost) VALUES(?,?,?,?,?,?)";
         db.update(sql, innBillett.getFilm(), innBillett.getAntall(), innBillett.getFornavn(), innBillett.getEtternavn(),
                 innBillett.getTelefon(), innBillett.getEpost());
     }
+    //Viser billetten i databasen
     public List<Billett> hentAlleBilletter(){
         String sql = "SELECT * FROM Billett ORDER BY etternavn";
         List<Billett> alleBilletter = db.query(sql, new BillettRowMapper());
         return alleBilletter;
     }
-
+//Sletter billetter i databasen
     public void slettAlleBilletter(){
         String sql = "DELETE FROM Billett";
         db.update(sql);
     }
-
+//oppdaterer billetten i databasen
     public boolean oppdaterBillett(Billett b){
         String sql = "UPDATE Billett SET film=?, antall=?, fornavn=?, etternavn=?, telefon=?, epost=?, id=?";
         try{
@@ -61,12 +63,12 @@ public class BillettRepository {
             return false;
         }
     }
-
+//sletter 1 billett i databasen
     public void slettEnBillett(Billett b){
         String sql = "DELETE FROM Billett WHERE id=?";
         db.update(sql, b.getId());
     }
-
+//endrer på 1 billett i databasen
     public Billett hentEnBillett(Billett b){
         System.out.println(b.getId());
         String sql = "SELECT * FROM Billett WHERE id=?";
