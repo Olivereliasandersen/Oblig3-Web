@@ -53,7 +53,7 @@ public class BillettRepository {
     }
 //oppdaterer billetten i databasen
     public boolean oppdaterBillett(Billett b){
-        String sql = "UPDATE Billett SET film=?, antall=?, fornavn=?, etternavn=?, telefon=?, epost=?, id=?";
+        String sql = "UPDATE Billett SET film=?, antall=?, fornavn=?, etternavn=?, telefon=?, epost=? WHERE id=?";
         try{
             db.update(sql, b.getFilm(),b.getAntall(),b.getFornavn(),b.getEtternavn(),b.getTelefon(),b.getEpost(),b.getId());
             return true;
